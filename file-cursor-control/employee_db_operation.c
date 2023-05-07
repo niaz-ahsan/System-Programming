@@ -24,6 +24,7 @@ int main(int argc, char * argv[]) {
         exit(1);
     }
     int choice;
+    char continue_input;
 
     while (1) {
         printf("\nPress your choice:\nPress (1) for generating db\nPress (2) for fetch data by id\nPress (3) for updating data\nPress (0) to quit\n");
@@ -66,6 +67,13 @@ int main(int argc, char * argv[]) {
             break;
         } else {
             printf("I dont know what you want!\n");
+        }
+
+        printf("Do you want to continue? (y/n):\n");
+        getchar(); // the previous 'enter' key press is caught by this. Otherwise the next scanf would read 'enter' press as input.
+        scanf("%c", &continue_input);
+        if (continue_input == 'n' || continue_input == 'N') {
+            break;
         }
     }    
 
