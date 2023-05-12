@@ -14,9 +14,9 @@ struct employee {
     char lname[NAME_LEN];
 };
 
-int main() {
+int main(void) {
     // open the file
-    int fd = open("employee_data.txt", O_RDONLY);
+    int fd = open("employee_data.txt", O_RDWR);
     if (fd < 0) {
         printf("File Open Error!");
         exit(1);
@@ -26,23 +26,28 @@ int main() {
     size_t file_size = lseek(fd, 0, SEEK_END); 
     size_t record_size = sizeof(struct employee);
 
-    //printf("file size: %ld\n record size: %ld\n %d", file_size, record_size, (int) file_size / (int) record_size);
-
-    // mapping file into the memory and reading all at once
     struct employee *records = (struct employee *) mmap(NULL, 
                                                         file_size, 
-                                                        PROT_READ, 
-                                                        MAP_PRIVATE, 
+                                                        PROT_READ | PROT_WRITE, 
+                                                        MAP_SHARED, 
                                                         fd, 
                                                         0); // readin the entire file from beginning
 
-    // iterating and print each record
+    // iterating and modifying necessary record
     int total_iterations = (int) file_size / (int) record_size;
     int i;
+
+    // for demo purpose just changing the last name of the 2nd record
     for (i=0; i<total_iterations; i++) {
-        struct employee data = records[i];
-        printf("Employee Data id: %d\n=================\n", data.id);
-        printf("First name: %s\nLast name: %s\n\n", data.fname, data.lname);
+        if (records[i].id == 2) {
+            strcpy(records[i].lname, "Armstrong");
+        }
+    }
+
+    // flushing the changes to the file in the disk
+    if (msync(records, file_size, MS_SYNC) < 0) {
+        printf("Error on writing to file\n");
+        exit(1);
     }
 
     // releasing the memory mapped to the file
@@ -50,6 +55,8 @@ int main() {
         printf("Error on releasing memory\n");
         exit(1);
     }
+
+    printf("Change is committed\n");
 
     close(fd);
     return 0;
