@@ -3,22 +3,30 @@
 
 #define BUFFER_SIZE 4096
 
-int main(void) {
+int main(int argc, char *argv[]) {
     FILE *src_fp, *des_fp;
     char buffer[BUFFER_SIZE];
     size_t bytes_read;
 
+    if (argc < 3) {
+        printf("Syntax: <exe> <file source path> <file destination path>\n");
+        exit(1);
+    }
+
+    char *source = argv[1];
+    char *destination = argv[2];
+
     // open src file in read mode
-    src_fp = fopen("source.txt", "r");
+    src_fp = fopen(source, "r");
     if (src_fp == NULL) {
-        printf("Source file open error");
+        printf("Source file open error\n");
         exit(1);
     }
 
     // open des file in write mode
-    des_fp = fopen("destination.txt", "w");
+    des_fp = fopen(destination, "w");
     if (des_fp == NULL) {
-        printf("Destination file open error");
+        printf("Destination file open error\n");
         exit(1);
     }
 
