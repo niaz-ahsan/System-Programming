@@ -51,6 +51,9 @@ int main(int argc, char *argv[]) {
         printf("-c not set\n");
     }
     
+    for (int i = optind; i<argc; i++) {
+        printf("Non option argument: %s\n", argv[i]);
+    }
 
     return 0;
 }
