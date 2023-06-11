@@ -62,7 +62,21 @@ int main(int argc, char *argv[]) {
             }
         }
     } else if (s_set) {
-        printf("Set\n");
+        for (int i = optind; i<argc; i+=2) {
+            char *key = argv[i];
+            char *value;
+            if (argc >= i+1) {
+                value = argv[i+1];
+            } else {
+                printf("%s: No value provided\n", argv[i]);
+            }
+            int flag = setenv(key, value, 1); 
+            if (flag == 0) { // success
+                printf("%s: %s is set\n", argv[i], argv[i+1]);
+            } else { // error
+                printf("%s: Error setting\n", argv[i]);
+            }
+        }
     } else if (r_set) {
         printf("Remove\n");
     }
