@@ -32,6 +32,7 @@ int main(void) {
 
     print_time("%m/%d/%Y", now_tm);
     print_time("%a | %d %b %Y | %I:%M %p (%Z)", now_tm);
+    print_time("%A %B %d of %Y", now_tm);
 
     return 0;
 }
