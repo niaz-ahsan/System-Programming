@@ -22,6 +22,7 @@ int main(void) {
     now_tm = localtime(&now);
 
     print_time("%m/%d/%Y", now_tm);
+    print_time("%a | %d %b %Y | %I:%M %p", now_tm);
 
     return 0;
 }
