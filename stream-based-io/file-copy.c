@@ -1,7 +1,7 @@
 #include <stdio.h> // include stdio for fopen(), fread(), fwrite(), fclose()
 #include <stdlib.h> // include stdlib for exit()
 
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 50
 
 int main(int argc, char *argv[]) {
     FILE *src_fp, *des_fp;
@@ -31,13 +31,17 @@ int main(int argc, char *argv[]) {
     }
 
     // keep reading the src file and write to the des file
+    int itr = 0;
     while( (bytes_read = fread(buffer, sizeof(char), BUFFER_SIZE, src_fp)) > 0) {
+        itr++;
+        printf("[itr %d]: bytes read: %zu\n", itr, bytes_read);
         fwrite(buffer, sizeof(char), bytes_read, des_fp);
     }
 
     fclose(src_fp);
     fclose(des_fp);
 
+    printf("Total iterations: %d\n", itr);
     printf("File copy is complete!\n");
 
     return 0;
