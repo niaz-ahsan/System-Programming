@@ -24,8 +24,12 @@
 #define ANSI_STYLE_ITALIC       "\x1b[3m"
 #define ANSI_STYLE_UNDERLINE    "\x1b[4m"
 
+#define CLEAR_SCREEN            "\x1B[2J"
+
 int main(int argc, const char **argv)
 {
+    printf(CLEAR_SCREEN);
+
     puts("## Print color ##");
     printf("=> " ANSI_COLOR_BLACK   "This text is BLACK!"   ANSI_RESET_ALL "\n");
     printf("=> " ANSI_COLOR_RED     "This text is RED!"     ANSI_RESET_ALL "\n");
