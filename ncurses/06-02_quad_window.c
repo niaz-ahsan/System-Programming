@@ -14,13 +14,20 @@ int main() {
     WINDOW * win1 = newwin(LINES/2, COLS/2, 0, 0); // top left
     WINDOW * win2 = newwin(LINES/2, COLS/2, 0, COLS/2); // top right 
     WINDOW * win3 = newwin(LINES/2, COLS/2, LINES/2, 0); // bottom left
-    WINDOW * win4 = newwin(LINES/2, COLS/2, LINES/2, COLS/2);
+    WINDOW * win4 = newwin(LINES/2, COLS/2, LINES/2, COLS/2); // bottom right
 
     // set bkgd color
     wbkgd(win1, COLOR_PAIR(1));
     wbkgd(win2, COLOR_PAIR(2));
     wbkgd(win3, COLOR_PAIR(3));
     wbkgd(win4, COLOR_PAIR(4));
+    //wbkgd(win4, '|');
+
+    // set some borders
+    box(win1, '!','~');
+    box(win2, '!','~');
+    box(win3, '!','~');
+    box(win4, '!','~');
 
     // set some text
     waddstr(win1, "1st screen");
