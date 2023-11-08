@@ -2,8 +2,10 @@
 
 int main() {
     int count = 0;
-    while (getchar() != EOF) {
-        count++;
+    int ch;
+    while ((ch = getchar()) != EOF) {
+        if (ch != '\n')
+            count++;
     }
     printf("Characters entered: %d\n", count);
     return 0;
